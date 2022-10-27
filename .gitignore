@@ -1,6 +1,7 @@
 ## 확장자 무시
 *.csv
 *.txt
+*.xlsx
 
 ## 경로무시
 .ipynb_checkpoints/
