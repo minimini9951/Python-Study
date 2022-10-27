@@ -1,0 +1,6 @@
+## 확장자 무시
+*.csv
+*.txt
+
+## 경로무시
+.ipynb_checkpoints/
