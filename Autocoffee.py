@@ -6,39 +6,42 @@ material = {'커피': 3, '물': 3, '컵': 3, '프림': 3, '설탕': 3}
 money = {'블랙커피': 1000, '설탕커피': 1000, '프림커피': 1500, '밀크커피': 2000, 'money_in': 0}
 # 블랙 = 1000 설탕 = 1000 프림 = 1500 밀크 = 2000
 
-class AutoCoffee: # 커피자동판매기
+
+class Auto_coffee():  # 커피자동판매기
 
     def run(self):
         while True:
-            print('= ' * 12 + '커피자판기' + ' =' * 12 + '\n')
-            self.get_cof() # print coffee name & coffee value
-            self.get_money() # 금액 투입 및 투입된 금액 출력
-            self.select_coffee() # 원하는 커피 선택 후 나옴
+            self.get_cof()  # print coffee name & coffee value
+            self.get_money()  # 금액 투입 및 투입된 금액 출력
+            self.select_coffee()  # 원하는 커피 선택 후 나옴
 
     # 금액 투입 # 확인 완료
     def get_money(self):
         money_in = 0
         while True:
-            print('= ' * 12 + '금액투입' + ' =' * 12 +'\n')
+            print('= ' * 12 + '금액투입' + ' =' * 12 + '\n')
             print('현재 투입된 금액 : {}원\n'.format(money['money_in']))
             if money['money_in'] > money['블랙커피'] or money['money_in'] > money['설탕커피'] or money['money_in'] > money['프림커피'] or money['money_in'] > money['밀크커피']:
                 self.select_coffee()
                 break
             else:
-                money_in = input('투입 금액 : ') # money_in에 투입할 금액을 입력받고
+                money_in = input('투입 금액 : ')  # money_in에 투입할 금액을 입력받고
                 print()
-                if money_in != '': # money_in이 공백일 때 예외처리
-                    if money_in == 'manager' or money_in == 'MANAGER': # 투입 금액에 manager(대, 소문자) 입력시
-                        self.manager_sys() # 커피 자동 판매기 관리 프로그램으로 연결
+                if money_in != '':  # money_in이 공백일 때 예외처리
+                    # 투입 금액에 manager(대, 소문자) 입력시
+                    if money_in == 'manager' or money_in == 'MANAGER':
+                        self.manager_sys()  # 커피 자동 판매기 관리 프로그램으로 연결
                         break
                     try:
-                        money_in = int(money_in) # money_in을 형변환 시도
+                        money_in = int(money_in)  # money_in을 형변환 시도
                         if money_in > 0:
-                            if money['money_in'] == '0': # 처음 등록할 때
+                            if money['money_in'] == '0':  # 처음 등록할 때
                                 money['money_in'] = money_in
                             else:
-                                money['money_in'] += money_in  # 형변환 성공시 'money_in'을 키로 투입 금액을 저장
-                                print('투입 금액 : {}원\n'.format(money['money_in']))
+                                # 형변환 성공시 'money_in'을 키로 투입 금액을 저장
+                                money['money_in'] += money_in
+                                print('투입 금액 : {}원\n'.format(
+                                    money['money_in']))
                                 break
                         else:
                             print('돈을 투입해 주세요.\n')
@@ -57,12 +60,12 @@ class AutoCoffee: # 커피자동판매기
             if sel != '':
                 if sel == '1' or '2' or '3':
                     if sel == '1':
-                        self.sys_fill() # 1. 재료 보충
+                        self.sys_fill()  # 1. 재료 보충
                     elif sel == '2':
-                        self.sys_change_val() # 2. 금액 조정
+                        self.sys_change_val()  # 2. 금액 조정
                     elif sel == '3':
-                        print('금액 투입으로 돌아갑니다.\n') # 3. 시스템 종료
-                        self.menu()
+                        print('금액 투입으로 돌아갑니다.\n')  # 3. 시스템 종료
+                        self.run()
                         break
             else:
                 print('번호를 입력해주세요.')
@@ -72,6 +75,8 @@ class AutoCoffee: # 커피자동판매기
         while True:
             count = 0
             print('= ' * 12 + '재료' + ' =' * 12 + '\n')
+            print(
+                f'커피 : {material["커피"]}, 물 : {material["물"]}, 설탕 : {material["설탕"]}, 프림 : {material["프림"]}, 컵 : {material["컵"]}')
             print('1) 전체 2) 커피 3) 물 4) 설탕 5) 프림 6) 컵')
             print()
             sel = input('보충할 재료의 번호를 입력해 주세요.(종료는 q 입력) : ')
@@ -90,19 +95,20 @@ class AutoCoffee: # 커피자동판매기
                         else:
                             print('모든 재료를 보충했습니다.\n\n관리 프로그램으로 돌아갑니다.\n')
                             break
-                    else: # 1이 아닐경우(2, 3, 4, 5, 6)
+                    else:  # 1이 아닐경우(2, 3, 4, 5, 6)
                         if sel == '2':
                             if material['커피'] != 3:
                                 material['커피'] = 3
                                 print('커피를 보충했습니다.\n')
                             else:
                                 print('이미 커피는 가득 차 있습니다.\n')
-                        elif sel == '3': # elif sel == i + 1:
+                        elif sel == '3':  # elif sel == i + 1:
                             if material['물'] != 3:
                                 material['물'] = 3
                                 print('물을 보충했습니다.\n')
                             else:
-                                print('이미 물은 가득 차 있습니다.\n') # print('이미 {}은 가득 차 있습니다.\n.format(i)')
+                                # print('이미 {}은 가득 차 있습니다.\n.format(i)')
+                                print('이미 물은 가득 차 있습니다.\n')
                         elif sel == '4':
                             if material['설탕'] != 3:
                                 material['설탕'] = 3
@@ -139,22 +145,26 @@ class AutoCoffee: # 커피자동판매기
                     if val != '':
                         try:
                             val = int(val)
-                            if val > 0 :
+                            if val > 0:
                                 if sel_cof == '블랙커피':
                                     money['블랙커피'] = val
-                                    print('블랙커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
+                                    print(
+                                        '블랙커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
                                     break
                                 elif sel_cof == '설탕커피':
                                     money['설탕커피'] = val
-                                    print('설탕커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
+                                    print(
+                                        '설탕커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
                                     break
                                 elif sel_cof == '프림커피':
                                     money['프림커피'] = val
-                                    print('프림커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
+                                    print(
+                                        '프림커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
                                     break
                                 elif sel_cof == '밀크커피':
                                     money['밀크커피'] = val
-                                    print('밀크커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
+                                    print(
+                                        '밀크커피의 가격이 {}원으로 변경되었습니다.\n'.format(val))
                                     break
                             else:
                                 print('0 보다 낮은 가격으로는 설정할 수 없습니다.\n')
@@ -169,15 +179,17 @@ class AutoCoffee: # 커피자동판매기
 
     # 커피이름 + 가격 출력 # 확인 완료
     def get_cof(self):
-        print('1. 블랙커피({}원) 2. 설탕커피({}원) 3. 프림커피({}원) 4. 밀크커피({}원)\n'.format(money['블랙커피'], money['설탕커피'], money['프림커피'], money['밀크커피']))
+        print('= ' * 12 + '커피자판기' + ' =' * 12 + '\n')
+        print('1. 블랙커피({}원) 2. 설탕커피({}원) 3. 프림커피({}원) 4. 밀크커피({}원)\n'.format(
+            money['블랙커피'], money['설탕커피'], money['프림커피'], money['밀크커피']))
 
     # 커피 종류 선택 및 가격 출력 # 확인 완료
     def select_coffee(self):
         while True:
             self.get_cof()
-            cof = input('원하는 커피 입력(종료를 원하면 엔터) : ') # 예외처리(공백)
+            cof = input('원하는 커피 입력(종료를 원하면 엔터) : ')  # 예외처리(공백)
             print()
-            if cof != '': # 예외처리(공백)
+            if cof != '':  # 예외처리(공백)
                 self.con_material(cof)
                 break
             else:
@@ -188,9 +200,8 @@ class AutoCoffee: # 커피자동판매기
                         print('프로그램을 종료합니다.\n\n돈을 돌려 드리겠습니다.\n')
                         print('나올 금액 : {}원\n'.format(money['money_in']))
                         money['money_in'] = 0
-                        self.menu()
-                        break
-                    elif esc == 'n' or esc =='N':
+                        self.run()
+                    elif esc == 'n' or esc == 'N':
                         print('커피 선택 화면으로 돌아갑니다.\n')
                         break
                     else:
@@ -201,7 +212,8 @@ class AutoCoffee: # 커피자동판매기
         if cof == '블랙커피':
             if money['money_in'] >= money['블랙커피']:
                 money['money_in'] -= money['블랙커피']
-                if material['커피'] > 0 and material['물'] > 0 and material['컵'] > 0: # 다른 재료들의 갯수가 0보다 크다면
+                # 다른 재료들의 갯수가 0보다 크다면
+                if material['커피'] > 0 and material['물'] > 0 and material['컵'] > 0:
                     material['커피'] -= 1
                     material['물'] -= 1
                     material['컵'] -= 1
@@ -251,7 +263,6 @@ class AutoCoffee: # 커피자동판매기
                     material['컵'] -= 1
                     material['프림'] -= 1
                     material['설탕'] -= 1
-                    money['money_in'] -= money['밀크커피']
                     print('밀크커피 나왔습니다.\n')
                 else:
                     print('재료가 없습니다.\n돈은 돌려 드리겠습니다.')
@@ -259,5 +270,6 @@ class AutoCoffee: # 커피자동판매기
         else:
             print('커피 이름을 입력해 주세요.\n')
 
-a = auto_Coffee()
-a.menu()
+
+cof = Auto_coffee()
+cof.run()
